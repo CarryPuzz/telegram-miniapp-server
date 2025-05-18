@@ -8,6 +8,10 @@ app.use(bodyParser.json());
 
 let users = {};
 
+app.get("/", (req, res) => {
+  res.send("Сервер працює!");
+});
+
 app.post("/api/start", (req, res) => {
   const { telegram_id } = req.body;
   if (!users[telegram_id]) users[telegram_id] = 0;
@@ -20,6 +24,7 @@ app.post("/api/complete-task", (req, res) => {
   res.json({ newBalance: users[telegram_id] });
 });
 
-app.listen(3000, () => {
-  console.log("Server running on http://localhost:3000");
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
